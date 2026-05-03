@@ -46,15 +46,15 @@ mod tests {
 
     #[test]
     fn test_vigenere_encrypt() {
-        assert_eq!(String::from("a"), vigenere("a", "a", Mode::Encrypt));
-        assert_eq!(String::from("y"), vigenere("z", "z", Mode::Encrypt));
-        assert_eq!(String::from("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl."), vigenere("The quick brown fox jumps over 13 lazy dogs.", "cryptii", Mode::Encrypt));
+        assert_eq!("a", vigenere("a", "a", Mode::Encrypt));
+        assert_eq!("y", vigenere("z", "z", Mode::Encrypt));
+        assert_eq!("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl.", vigenere("The quick brown fox jumps over 13 lazy dogs.", "cryptii", Mode::Encrypt));
     }
 
     #[test]
-    fn test_vigenere_decode() {
-        assert_eq!(String::from("a"), vigenere("a", "a", Mode::Decrypt));
-        assert_eq!(String::from("z"), vigenere("y", "z", Mode::Decrypt));
-        assert_eq!(String::from("the quick brown fox jumps over 13 lazy dogs."), vigenere("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl.", "cryptii", Mode::Decrypt));
+    fn test_vigenere_decrypt() {
+        assert_eq!("a", vigenere("a", "a", Mode::Decrypt));
+        assert_eq!("z", vigenere("y", "z", Mode::Decrypt));
+        assert_eq!("the quick brown fox jumps over 13 lazy dogs.", vigenere("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl.", "cryptii", Mode::Decrypt));
     }
 }
