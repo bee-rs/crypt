@@ -5,6 +5,7 @@ use cyphers::vigenere::*;
 
 mod cyphers;
 
+
 /// ## Used for setting the mode of crypt functions.
 #[derive(PartialEq)]
 pub enum Mode {
