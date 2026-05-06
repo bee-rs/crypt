@@ -1,7 +1,38 @@
 use crate::Mode;
 
-pub fn caesar(text: &str, key: u64, action: Mode) -> String {
-    todo!()
+/// #### Encrypts or decrypts using Caesar cypher depending on the Mode enum.
+///  
+/// ## Panic
+/// 
+/// #### this function doesn't panic but does
+///  - ignores every non ASCII char and passes it to output without encrypting it.
+///  - converts every ASCII char to lowercase.
+/// 
+/// # Examples
+///```
+/// let encrypt: String =  caesar("abc", 1, Mode::Encrypt); // -> bcd
+/// let decrypt: String =  caesar("bcd", 1, Mode::Decrypt); // -> abc
+///```
+pub fn caesar(text: &str, key: u8, action: Mode) -> String {
+    if text.is_empty() || key == 0 { return String::from(text) }
+    
+    let mut result = String::new();
+    for char in text.to_ascii_uppercase().chars() {
+        // checks if the current text char are a valid ASCII characters, if not returns unedited text char.
+        if !char.is_ascii_alphabetic() { 
+            result.push(char); 
+            continue;
+        }
+
+        // converts ASCII char into index numbers so a = 0, b = 1, c = 2...
+        let char_index = char.to_ascii_lowercase() as u8 - 97;
+        // encodes or decodes text depending on the mode. uses caesar cypher.
+        match action {
+            Mode::Encrypt => { result.push((((char_index + key)      % 26) + 97) as char) }
+            Mode::Decrypt => { result.push((((char_index + 26 - key) % 26) + 97) as char) }
+        }
+    }
+    return result;
 }
 
 #[cfg(test)]

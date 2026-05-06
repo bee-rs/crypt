@@ -14,7 +14,7 @@ use crate::Mode;
 /// let decrypt: String = vigenere("kykm", "rust", Mode::Decrypt); // -> test
 ///```
 pub fn vigenere(text: &str, key: &str, action: Mode) -> String {
-    if text.is_empty() || key.is_empty() { return String::from(key) }
+    if text.is_empty() || key.is_empty() { return String::from(text) }
     
     let mut result = String::new();
     // used for getting the right index of key. 
