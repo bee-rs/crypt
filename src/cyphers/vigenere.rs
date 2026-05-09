@@ -1,6 +1,6 @@
 use crate::Mode;
 
-/// #### Encrypts or decrypts using Vigenere cypher depending on the Mode enum.
+/// # Encrypts or decrypts using Vigenere cypher depending on the Mode enum.
 ///  
 /// ## Panic
 /// 
@@ -13,7 +13,7 @@ use crate::Mode;
 /// let encrypt: String = vigenere("test", "rust", Mode::Encrypt); // -> kykm
 /// let decrypt: String = vigenere("kykm", "rust", Mode::Decrypt); // -> test
 ///```
-pub fn vigenere(text: &str, key: &str, action: Mode) -> String {
+pub fn vigenere(text: &str, key: &str, mode: Mode) -> String {
     if text.is_empty() || key.is_empty() { return String::from(text) }
     
     let mut result = String::new();
@@ -31,7 +31,7 @@ pub fn vigenere(text: &str, key: &str, action: Mode) -> String {
         let key_char_index = key.chars().nth(count % key.len()).unwrap().to_ascii_lowercase() as u8 - 97;
         let char_index = char.to_ascii_lowercase() as u8 - 97;
         // encodes or decodes text depending on the mode. uses vigenere cypher.
-        match action {
+        match mode {
             Mode::Encrypt => { result.push( (((char_index + key_char_index)      % 26) + 97) as char) }
             Mode::Decrypt => { result.push( (((char_index + 26 - key_char_index) % 26) + 97) as char) }
         }
@@ -49,6 +49,7 @@ mod tests {
         assert_eq!("a", vigenere("a", "a", Mode::Encrypt));
         assert_eq!("y", vigenere("z", "z", Mode::Encrypt));
         assert_eq!("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl.", vigenere("The quick brown fox jumps over 13 lazy dogs.", "cryptii", Mode::Encrypt));
+        assert_eq!("kykm 12038 ][/'; kykm =-=-=", vigenere("test 12038 ][/'; test =-=-=", "rust", Mode::Encrypt))
     }
 
     #[test]
@@ -56,5 +57,6 @@ mod tests {
         assert_eq!("a", vigenere("a", "a", Mode::Decrypt));
         assert_eq!("z", vigenere("y", "z", Mode::Decrypt));
         assert_eq!("the quick brown fox jumps over 13 lazy dogs.", vigenere("vyc fnqkm spdpv nqo hjfxa qmcg 13 eiha umvl.", "cryptii", Mode::Decrypt));
+        assert_eq!("test 12038 ][/'; test =-=-=", vigenere("kykm 12038 ][/'; kykm =-=-=", "rust", Mode::Decrypt));
     }
 }

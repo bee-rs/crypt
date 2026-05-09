@@ -1,6 +1,6 @@
 use crate::Mode;
 
-/// #### Encrypts or decrypts using Caesar cypher depending on the Mode enum.
+/// # Encrypts or decrypts using Caesar cypher depending on the Mode enum.
 ///  
 /// ## Panic
 /// 
